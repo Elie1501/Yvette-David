@@ -45,55 +45,7 @@
             font-size: clamp(4.5rem, 15vw, 8.5rem);
             color: var(--bleu-ocean);
             margin-bottom: 30px;
-        }
-
-        /* --- CHRONO ENCADRÉ AVEC SÉPARATEURS --- */
-        .countdown-frame {
-            padding: 25px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(15px);
-            border-radius: 2px;
-            display: inline-block;
-        }
-
-        .countdown-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .countdown-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 100px;
-            padding: 0 10px;
-        }
-
-        /* La ligne de séparation fine */
-        .separator {
-            width: 1px;
-            height: 50px;
-            background: rgba(40, 101, 188, 0.3); /* Bleu océan léger */
-        }
-
-        .count-number {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--bleu-ocean);
-            line-height: 1;
-        }
-
-        .count-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 700;
-            margin-top: 8px;
-            color: var(--bleu-ocean);
-            opacity: 0.8;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
         }
 
         /* --- PARALLAX --- */
@@ -154,6 +106,15 @@
         .form-group { margin-bottom: 20px; text-align: left; }
         label { display: block; font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; color: var(--bleu-ocean); margin-bottom: 8px; letter-spacing: 1px; }
 
+        .age-info {
+            font-weight: 400;
+            font-size: 0.65rem;
+            text-transform: none;
+            opacity: 0.6;
+            letter-spacing: 0;
+            margin-left: 5px;
+        }
+
         input, select, textarea {
             width: 100%; padding: 12px; border: 1px solid #eee; border-bottom: 2px solid var(--bleu-ocean); outline: none;
             font-family: 'Cormorant Garamond'; font-size: 1.2rem; background: #fafafa;
@@ -174,10 +135,6 @@
         @media (max-width: 768px) {
             .rsvp-grid { grid-template-columns: 1fr; }
             h2 { font-size: 3.2rem; }
-            .countdown-frame { padding: 15px; }
-            .countdown-box { min-width: 70px; }
-            .count-number { font-size: 2rem; }
-            .separator { height: 35px; }
         }
     </style>
 </head>
@@ -185,50 +142,20 @@
 
 <header class="hero-header">
     <h1>Yvette & Daniel</h1>
-
-    <div class="countdown-frame">
-        <div class="countdown-container">
-            <div class="countdown-box">
-                <span class="count-number" id="days">00</span>
-                <span class="count-label">Jours</span>
-            </div>
-
-            <div class="separator"></div>
-
-            <div class="countdown-box">
-                <span class="count-number" id="hours">00</span>
-                <span class="count-label">Heures</span>
-            </div>
-
-            <div class="separator"></div>
-
-            <div class="countdown-box">
-                <span class="count-number" id="minutes">00</span>
-                <span class="count-label">Min</span>
-            </div>
-
-            <div class="separator"></div>
-
-            <div class="countdown-box">
-                <span class="count-number" id="seconds">00</span>
-                <span class="count-label">Sec</span>
-            </div>
-        </div>
-    </div>
 </header>
 
 <div class="parallax-section">
-    <div class="invitation-card" id="card-marie"><img src="mairie.jpg" alt="Invitation Mairie"></div>
+    <div class="invitation-card" id="card-marie"><img src="mairie.png" alt="Invitation Mairie"></div>
 </div>
 
 <section class="info-block">
     <h2>Cérémonie Civile</h2>
     <div class="details">
         Nous serons heureux de vous retrouver à la<br>
-        <strong>Mairie de Levallois-Perret</strong><br>
+        <strong>Mairie du 19e arrondissement de Paris</strong><br>
         Le Dimanche 21 Juin 2026 à 14h00
     </div>
-    <a href="https://waze.com/ul?q=Mairie%20de%20Levallois" target="_blank" class="btn-waze">PLAN WAZE</a>
+    <a href="https://www.waze.com/ul?q=Mairie%20du%2019e%20arrondissement%20de%20Paris" target="_blank" class="btn-waze">PLAN WAZE</a>
 </section>
 
 <div class="parallax-section">
@@ -238,11 +165,11 @@
 <section class="info-block">
     <h2>La Houppa</h2>
     <div class="details">
-        La cérémonie religieuse et la réception se dérouleront au<br>
-        <strong>Pavillon Royal, Paris</strong><br>
+        La cérémonie religieuse et la réception se dérouleront à <br>
+        <strong>L'InterContinental Paris - Le Grand</strong><br>
         À partir de 17h30
     </div>
-    <a href="https://waze.com/ul?q=Pavillon%20Royal%20Paris" target="_blank" class="btn-waze">PLAN WAZE</a>
+    <a href="https://www.waze.com/ul?q=InterContinental%20Paris%20Le%20Grand" target="_blank" class="btn-waze">PLAN WAZE</a>
 </section>
 
 <section class="info-block" style="background: none;">
@@ -271,7 +198,7 @@
                             <input type="number" name="adultes_mairie" min="1" value="1">
                         </div>
                         <div class="form-group">
-                            <label>NB. ENFANTS</label>
+                            <label>NB. ENFANTS <span class="age-info">(-10 ans)</span></label>
                             <input type="number" name="enfants_mairie" min="0" value="0">
                         </div>
                     </div>
@@ -292,7 +219,7 @@
                             <input type="number" name="adultes_houppa" min="1" value="1">
                         </div>
                         <div class="form-group">
-                            <label>NB. ENFANTS</label>
+                            <label>NB. ENFANTS <span class="age-info">(-10 ans)</span></label>
                             <input type="number" name="enfants_houppa" min="0" value="0">
                         </div>
                     </div>
@@ -327,18 +254,6 @@
         cardMarie.style.transform = `translateY(${(scrolled - window.innerHeight) * speed}px)`;
         cardHouppa.style.transform = `translateY(${(scrolled - (window.innerHeight * 2)) * speed}px)`;
     });
-
-    const weddingDate = new Date("June 21, 2026 14:00:00").getTime();
-    setInterval(function() {
-        const now = new Date().getTime();
-        const diff = weddingDate - now;
-        if (diff > 0) {
-            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
-        }
-    }, 1000);
 
     document.getElementById('rsvpForm').addEventListener('submit', (e) => {
         e.preventDefault();
