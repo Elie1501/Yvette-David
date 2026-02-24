@@ -96,7 +96,7 @@
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
-        /* --- LOGO FIXE --- */
+        /* --- LOGO --- */
         .photo-container {
             width: 350px;
             height: auto;
@@ -117,13 +117,14 @@
             filter: drop-shadow(0 5px 15px rgba(26, 82, 118, 0.1));
         }
 
-        /* --- TITRE --- */
+        /* --- TITRE : ESPACE RÉDUIT AU MAXIMUM --- */
         h1 {
             font-family: 'Pinyon Script', cursive;
             font-size: 4.5rem;
             color: var(--bleu-ocean);
-            margin: -60px 0 10px 0;
-            line-height: 0.9;
+            /* Remontée maximale pour coller au visuel */
+            margin: -140px 0 5px 0;
+            line-height: 0.8;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 11;
@@ -176,7 +177,7 @@
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 450px) {
             .photo-container { width: 280px; }
-            h1 { font-size: 3.5rem; margin-top: -40px; }
+            h1 { font-size: 3.5rem; margin-top: -110px; }
             .countdown { gap: 15px; margin-bottom: 20px; }
             .count-num { font-size: 1.4rem; }
             .btn { padding: 14px 35px; font-size: 0.75rem; }
@@ -191,7 +192,7 @@
 
     <div class="card-wrapper">
         <div class="photo-container">
-            <img src="logoFleur.png" alt="Logo Mariage">
+            <img src="logo.png" alt="Logo Mariage">
         </div>
 
         <h1>Yvette & Daniel</h1>
@@ -209,8 +210,6 @@
 </div>
 
 <script>
-    // Date cible mise à jour : 21 Juin 2026 à 17:30
-    // Janvier est 0, Juin est donc 5.
     const targetDate = new Date(2026, 5, 21, 17, 30, 0).getTime();
 
     setInterval(() => {
@@ -228,7 +227,6 @@
             document.getElementById("m").innerText = m < 10 ? "0"+m : m;
             document.getElementById("s").innerText = s < 10 ? "0"+s : s;
         } else {
-            // Si la date est passée, on affiche tout à zéro
             document.getElementById("d").innerText = "00";
             document.getElementById("h").innerText = "00";
             document.getElementById("m").innerText = "00";
