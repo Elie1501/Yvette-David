@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            /* Palette mise à jour avec ton bleu spécifique */
+            /* Palette mise à jour avec ton bleu #2865bc */
             --bleu-ocean: #2865bc;
             --bleu-azur: #7fb1f0;
             --blanc-sable: #FDFCF0;
@@ -64,7 +64,7 @@
         }
         .blue-speck {
             position: absolute; width: 4px; height: 4px;
-            background-color: var(--bleu-ocean); /* Particules indexées sur ton bleu */
+            background-color: var(--bleu-ocean);
             border-radius: 50%; opacity: 0;
             animation: fall linear infinite;
         }
@@ -97,12 +97,12 @@
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
-        /* --- LOGO --- */
+        /* --- LOGO FIXE --- */
         .photo-container {
             width: 350px;
             height: auto;
             position: relative;
-            margin-bottom: 0px;
+            margin-bottom: 0px; /* Pas de marge sous le logo pour rapprocher le texte */
             border: none;
             background: transparent;
             display: flex;
@@ -118,13 +118,14 @@
             filter: drop-shadow(0 5px 15px rgba(40, 101, 188, 0.2));
         }
 
-        /* --- TITRE --- */
+        /* --- TITRE : REMONTÉ DAVANTAGE --- */
         h1 {
             font-family: 'Pinyon Script', cursive;
             font-size: 4.5rem;
             color: var(--bleu-ocean);
-            margin: -140px 0 5px 0;
-            line-height: 0.8;
+            /* On augmente la marge négative pour coller au bas du logo */
+            margin: -110px 0 10px 0;
+            line-height: 0.9;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 11;
@@ -177,7 +178,7 @@
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 450px) {
             .photo-container { width: 280px; }
-            h1 { font-size: 3.5rem; margin-top: -110px; }
+            h1 { font-size: 3.5rem; margin-top: -85px; } /* Ajusté pour mobile sans bouger le logo */
             .countdown { gap: 15px; margin-bottom: 20px; }
             .count-num { font-size: 1.4rem; }
             .btn { padding: 14px 35px; font-size: 0.75rem; }
@@ -192,7 +193,7 @@
 
     <div class="card-wrapper">
         <div class="photo-container">
-            <img src="logo.png" alt="Logo Mariage">
+            <img src="logoFleur.png" alt="Logo Mariage">
         </div>
 
         <h1>Yvette & Daniel</h1>
@@ -204,7 +205,7 @@
             <div class="count-box"><span class="count-num" id="s">00</span><span class="count-label">Sec</span></div>
         </div>
 
-        <a href="premiere-page.html" class="btn" id="open-btn">Voir l'invitation</a>
+        <a href="invitation.html" class="btn" id="open-btn">Voir l'invitation</a>
 
     </div>
 </div>
