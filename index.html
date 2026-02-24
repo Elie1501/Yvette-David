@@ -11,9 +11,9 @@
 
     <style>
         :root {
-            /* Palette Bleu & Plage */
-            --bleu-ocean: #1a5276;
-            --bleu-azur: #5dade2;
+            /* Palette mise à jour avec ton bleu spécifique */
+            --bleu-ocean: #2865bc;
+            --bleu-azur: #7fb1f0;
             --blanc-sable: #FDFCF0;
             --texte-gris: #333333;
         }
@@ -64,7 +64,8 @@
         }
         .blue-speck {
             position: absolute; width: 4px; height: 4px;
-            background-color: var(--bleu-azur); border-radius: 50%; opacity: 0;
+            background-color: var(--bleu-ocean); /* Particules indexées sur ton bleu */
+            border-radius: 50%; opacity: 0;
             animation: fall linear infinite;
         }
         @keyframes fall {
@@ -114,15 +115,14 @@
             height: auto;
             object-fit: contain;
             display: block;
-            filter: drop-shadow(0 5px 15px rgba(26, 82, 118, 0.1));
+            filter: drop-shadow(0 5px 15px rgba(40, 101, 188, 0.2));
         }
 
-        /* --- TITRE : ESPACE RÉDUIT AU MAXIMUM --- */
+        /* --- TITRE --- */
         h1 {
             font-family: 'Pinyon Script', cursive;
             font-size: 4.5rem;
             color: var(--bleu-ocean);
-            /* Remontée maximale pour coller au visuel */
             margin: -140px 0 5px 0;
             line-height: 0.8;
             text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
@@ -165,7 +165,7 @@
             transition: all 0.4s ease;
             border: 1px solid var(--bleu-ocean);
             font-weight: 600;
-            box-shadow: 0 10px 25px rgba(26, 82, 118, 0.3);
+            box-shadow: 0 10px 25px rgba(40, 101, 188, 0.3);
         }
 
         .btn:hover {
