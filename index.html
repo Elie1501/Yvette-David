@@ -7,62 +7,188 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@400;500;600;700&swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
             --bleu-ocean: #2865bc;
             --bleu-profond: #1a458b;
-            --bleu-azur: #7fb1f0;
-            /* Ta couleur blanc-sable en RGBA pour la transparence */
-            --blanc-sable-rgba: rgba(253, 252, 240, 0.96);
-            --texte-gris: #333333;
+            --beige-fond: #fdfcf0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body, html {
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            width: 100vw;
             font-family: 'Cormorant Garamond', serif;
-            background-color: #f0f4f8;
+            background-color: var(--beige-fond);
             overflow: hidden;
             perspective: 2000px;
         }
 
-        /* --- FOND FLORAL (Placé derrière la page) --- */
-        .background-container {
-            position: absolute;
+        #global-page-content {
+            position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -1; /* Derrière tout le reste */
-            background-position: center center;
-            background-size: cover;
+            z-index: 2;
+            background: linear-gradient(rgba(253, 252, 240, 0.1), rgba(253, 252, 240, 0.1)),
+            url('fondfleuries.png');
+            background-position: center;
+            background-size: 100% 100%;
             background-repeat: no-repeat;
-        }
-
-        /* --- PAGE GLOBALE AVEC EFFET BLUR & COULEUR SABLE --- */
-        #global-page-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            /* Application de ta couleur et du flou */
-            background-color: var(--blanc-sable-rgba);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px); /* Compatibilité Safari */
-
             transform-style: preserve-3d;
             transform-origin: left center;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-            box-shadow: inset 20px 0 50px rgba(0,0,0,0.05);
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .page-turn-active {
             transform: rotateY(-130deg);
+            opacity: 0;
         }
 
-        /* --- CONTENEUR CENTRAL --- */
         .card-wrapper {
+            position: relative;
+            z-index: 30;
+            width: 85%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .photo-container {
+            width: clamp(140px, 35vw, 200px); /* Logo légèrement réduit */
+            margin: 0 auto 5px; /* Espace réduit sous le logo */
+        }
+
+        .photo-container img { width: 100%; height: auto; }
+
+        h1 {
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(3rem, 12vw, 5rem);
+            color: var(--bleu-profond);
+            line-height: 0.8; /* Rapproche encore plus les noms du logo */
+            margin-bottom: 25px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            color: var(--bleu-ocean);
+        }
+
+        .count-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 55px;
+            background: rgba(253, 252, 240, 0.7);
+            padding: 8px 4px;
+            border-radius: 6px;
+        }
+
+        .count-num {
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-weight: 700;
+        }
+
+        .count-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- BOUTON RÉDUIT AVEC ANIMATION --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--bleu-ocean);
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 35px; /* Taille réduite */
+            font-size: 0.75rem; /* Texte plus petit */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            border: 1px solid var(--bleu-ocean);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover, .btn:active {
+            background-color: var(--bleu-profond);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(40, 101, 188, 0.3);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(30deg);
+            transition: none;
+        }
+
+        .btn:hover::after {
+            left: 140%;
+            transition: all 0.6s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="global-page-content">
+    <div class="card-wrapper">
+        <div class="photo-container">
+            <img src="logoFleur.png" alt="Logo">
+        </div>
+
+        <h1>Yvette & Daniel</h1>
+
+        <div class="countdown" id="countdown">
+            <div class="count-box"><span class="count-num" id="d">00</span><span class="count-label">Jours</span></div>
+            <div class="count-box"><span class="count-num" id="h">00</span><span class="count-label">Hrs</span></div>
+            <div class="count-box"><span class="count-num" id="m">00</span><span class="count-label">Min</span></div>
+            <div class="count-box"><span class="count-num" id="s">00</span><span class="count-label">Sec</span></div>
+        </div>
+
+        <a href="invitation.html" class="btn" id="open-btn">Voir l'invitation</a>
+    </div>
+</div>
+
+<script>
+    const targetDate = new Date(2026, 5, 21, 14, 0, 0).getTime();
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+        if (diff > 0) {
+            document.getElementById("d").innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById("h").innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById("m").innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById("s").innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+        }
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    document.getElementById('open-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('global-page-content').classList.add('page-turn-active');
+        setTimeout(() => { window.location.href = this.getAttribute('href'); }, 1400);
+    });
+</script>
+</body>
+</html>        .card-wrapper {
             position: absolute;
             top: 45%;
             left: 50%;
