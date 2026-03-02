@@ -27,12 +27,12 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%;
-            height: 100%;
+            height: 110%;
             z-index: 2;
 
-            /* Image étirée et centrée selon tes derniers réglages */
-            background: url('jsp.png') no-repeat center 52%;
-            background-size: 100% 170%;
+            /* MODIFICATION ICI : On force l'image à s'étirer pour remplir tout l'écran */
+            background: url('lasr.jpg') no-repeat center center;
+            background-size: 100% 106%;
             outline: 1px solid transparent;
 
             transform-style: preserve-3d;
@@ -55,12 +55,13 @@
             padding: 0 10%;
             position: relative;
             z-index: 4;
-            margin-top: -2vh;
+            /* On remonte un peu le texte pour qu'il soit bien au centre du cadre floral */
+            margin-top: -30vh;
         }
 
         .photo-container {
-            width: 250px;
-            margin: 0 auto -45px; /* Ajusté pour le titre sur 3 lignes */
+            width: 220px; /* Légère réduction pour l'équilibre visuel */
+            margin: 0 auto -30px;
         }
         .photo-container img {
             width: 100%;
@@ -69,10 +70,9 @@
 
         h1 {
             font-family: 'Pinyon Script', cursive;
-            /* Taille légèrement réduite pour que les 3 lignes rentrent bien */
-            font-size: clamp(2.5rem, 10vw, 3.8rem);
+            font-size: clamp(2.4rem, 10vw, 3.5rem);
             color: var(--bleu-royal);
-            line-height: 1.1; /* Espacement entre les lignes Yvette, & et Daniel */
+            line-height: 1.1;
             margin-bottom: 30px;
         }
 
