@@ -130,14 +130,14 @@
     <img src="ceremonieCivile.jpg" alt="Mairie" class="card-img">
     <h2>Cérémonie Civile</h2>
     <p class="details">Mairie du 19e arrondissement<br>Jeudi 18 Juin 2026 à 14h00</p>
-    <a href="https://waze.com" class="btn-waze">PLAN WAZE</a>
+    <a href="https://waze.com/ul?q=Mairie%20du%2019e%20Arrondissement%20Paris" target="_blank" class="btn-waze">PLAN WAZE</a>
 </div>
 
 <div class="section alt reveal">
     <img src="houppa.jpg" alt="Houppa" class="card-img">
     <h2>La Houppa</h2>
     <p class="details">InterContinental Paris - Le Grand<br>Dimanche 21 Juin 2026, à partir de 17h30</p>
-    <a href="https://waze.com" class="btn-waze">PLAN WAZE</a>
+    <a href="https://waze.com/ul?q=InterContinental%20Paris%20Le%20Grand" target="_blank" class="btn-waze">PLAN WAZE</a>
 </div>
 
 <section class="section rsvp-section reveal">
@@ -146,74 +146,111 @@
         <form id="rsvpForm">
             <div class="form-group">
                 <label>NOM & PRÉNOM</label>
-                <input type="text" placeholder="Ex: Famille Levy" required>
+                <input type="text" name="nom" id="nom" placeholder="Ex: Famille Levy" required>
             </div>
 
             <div class="rsvp-column">
                 <label>CÉRÉMONIE CIVILE (MAIRIE)</label>
-                <select onchange="toggleGuest(this, 'm_det')">
+                <select name="mairie_presence" id="mairie_presence" onchange="toggleGuest(this, 'm_det')">
                     <option value="non">Absent</option>
                     <option value="oui">Présent</option>
                 </select>
                 <div id="m_det" class="guest-details">
                     <label style="margin-top:20px">Adultes</label>
-                    <input type="number" value="1" min="1">
+                    <input type="number" name="mairie_adultes" id="mairie_adultes" value="1" min="0">
                     <label style="margin-top:10px">Enfants (-10 ans)</label>
-                    <input type="number" value="0" min="0">
+                    <input type="number" name="mairie_enfants" id="mairie_enfants" value="0" min="0">
                 </div>
             </div>
 
             <div class="rsvp-column">
                 <label>HOUPPA & SOIRÉE</label>
-                <select onchange="toggleGuest(this, 'h_det')">
+                <select name="houppa_presence" id="houppa_presence" onchange="toggleGuest(this, 'h_det')">
                     <option value="non">Absent</option>
                     <option value="oui">Présent</option>
                 </select>
                 <div id="h_det" class="guest-details">
                     <label style="margin-top:20px">Adultes</label>
-                    <input type="number" value="1" min="1">
+                    <input type="number" name="houppa_adultes" id="houppa_adultes" value="1" min="0">
                     <label style="margin-top:10px">Enfants (-10 ans)</label>
-                    <input type="number" value="0" min="0">
+                    <input type="number" name="houppa_enfants" id="houppa_enfants" value="0" min="0">
                 </div>
             </div>
 
             <div class="form-group">
                 <label>UN PETIT MOT ?</label>
-                <textarea rows="2" placeholder="Votre message..."></textarea>
+                <textarea name="message" id="message" rows="2" placeholder="Votre message..."></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">ENVOYER LA RÉPONSE</button>
+            <button type="submit" id="submitBtn" class="submit-btn">ENVOYER LA RÉPONSE</button>
         </form>
+
     </div>
 </section>
 
 <script>
+    // URL mise à jour avec ton nouveau script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzYw9abFvbX_Qf5XJk49QQnjReYSCyrzVTBEbUKcIBS-nLrFKjkVIklhSrI2WCyCKVQ/exec';
+    const form = document.getElementById('rsvpForm');
+    const btn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = "ENVOI EN COURS...";
+
+        // Création d'un objet FormData à partir du formulaire
+        const formData = new FormData(form);
+
+        // LOGIQUE : Si absent, on force les compteurs à 0 pour le Google Sheet
+        if (formData.get('mairie_presence') === 'non') {
+            formData.set('mairie_adultes', '0');
+            formData.set('mairie_enfants', '0');
+        }
+        if (formData.get('houppa_presence') === 'non') {
+            formData.set('houppa_adultes', '0');
+            formData.set('houppa_enfants', '0');
+        }
+
+        // Envoi des données modifiées
+        fetch(scriptURL, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                alert('Merci ! Votre réponse a bien été enregistrée.');
+                btn.innerText = "ENVOYÉ !";
+                form.reset();
+                document.getElementById('m_det').classList.remove('show');
+                document.getElementById('h_det').classList.remove('show');
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur technique lors de l\'envoi.');
+                btn.disabled = false;
+                btn.innerText = "RÉESSAYER";
+            });
+    }); 
     const audio = document.getElementById('inviteMusic');
     const playerBtn = document.getElementById('playerBtn');
     let hasPlayed = false;
 
-    // FONCTION DE LECTURE OPTIMISÉE
     function startAudio() {
         if (!hasPlayed) {
             audio.play().then(() => {
                 playerBtn.classList.add('playing');
                 hasPlayed = true;
-                // On nettoie les écouteurs une fois lancé
                 ['click', 'touchstart', 'scroll'].forEach(evt =>
                     window.removeEventListener(evt, startAudio)
                 );
-            }).catch(error => {
-                console.log("Lecture en attente d'interaction utilisateur...");
-            });
+            }).catch(() => {});
         }
     }
 
-    // TRIPLE DÉCLENCHEUR (Dès le premier mouvement ou clic)
     window.addEventListener('click', startAudio);
     window.addEventListener('touchstart', startAudio);
     window.addEventListener('scroll', startAudio);
 
-    // TOGGLE MANUEL
     function toggleMusic(e) {
         e.stopPropagation();
         if (audio.paused) {
@@ -225,7 +262,6 @@
         }
     }
 
-    // PARALLAX ET REVEAL
     window.addEventListener('scroll', () => {
         const s = window.pageYOffset;
         const bg = document.getElementById('bg');
@@ -240,8 +276,7 @@
         });
     }, { passive: true });
 
-    // COUNTDOWN
-    const target = new Date("2026-06-21T14:00:00").getTime();
+    const target = new Date("2026-06-21T17:30:00").getTime();
     function updateTimer() {
         const diff = target - new Date().getTime();
         if (diff > 0) {
